@@ -80,10 +80,11 @@ def load_image_into_numpy_array(image):
 # image2.jpg
 # If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
 PATH_TO_TEST_IMAGES_DIR = 'test_images'
-TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 3) ]
+n = 3
+TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, n+1) ]
 
 # Size, in inches, of the output images.
-IMAGE_SIZE = (12, 8)
+IMAGE_SIZE = (3, 2)
 
 def run_inference_for_single_image(image, graph):
   with graph.as_default():
@@ -149,6 +150,7 @@ for image_path in TEST_IMAGE_PATHS:
       category_index,
       instance_masks=output_dict.get('detection_masks'),
       use_normalized_coordinates=True,
-      line_thickness=8)
+      line_thickness=4,
+      min_score_thresh=.2)
   plt.figure(figsize=IMAGE_SIZE)
   plt.imshow(image_np)
